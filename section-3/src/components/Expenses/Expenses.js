@@ -3,12 +3,22 @@ import ExpenseItem from "./ExpenseItem";
 import "./Expenses.css";
 
 function Expenses(props) {
-  const expenseItems = props.expenses.map((item, index, array) => (
-    <div>
-      <ExpenseItem title={item.title} amount={item.amount} date={item.date} />
-    </div>
-  ));
-  return <Card className="expenses">{expenseItems}</Card>;
+  return (
+    <Card className="expenses">
+      {props.expenses.map((item, index, array) => {
+        return (
+          <div>
+            <ExpenseItem
+              key={index + item.title}
+              title={item.title}
+              amount={item.amount}
+              date={item.date}
+            />
+          </div>
+        );
+      })}
+    </Card>
+  );
 }
 
 export default Expenses;
