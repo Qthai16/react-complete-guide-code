@@ -44,9 +44,8 @@ function App() {
   ];
   const [expensesArray, updateExpensesArray] = useState(expenses);
   const addNewExpenseItemHandler = (expenseItems) => {
-    let newArr = [...expensesArray].concat(expenseItems);;
-    // console.log(newArr);
-    updateExpensesArray(newArr); 
+    // let newArr = [...expensesArray].concat(expenseItems);
+    updateExpensesArray(prevExpenses => [...prevExpenses, expenseItems]); 
   };
   return (
     <div>

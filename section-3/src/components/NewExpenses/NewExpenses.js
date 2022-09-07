@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './NewExpenses.css'
 import ExpenseForm from './ExpenseForm'
 
@@ -9,11 +9,18 @@ const NewExpenses = (props) => {
             id: Math.random().toString()
         };
         props.onUpdateExpenses(expenseItems);
-        console.log(expenseItems);
     };
+    const [showForm, setShowForm] = useState(false);
+    const showFormHandler = (value) => {
+        setShowForm(value);
+    }
+    const addNewItemHandler = () => {
+        setShowForm(true);
+      };
     return (
         <div className='new-expense'>
-            <ExpenseForm onSaveExpenseItem={saveNewExpenseItemHandler}/>
+            {!showForm && <button type="button" onClick={addNewItemHandler}>Add expense item</button>}
+            {showForm && <ExpenseForm onSaveExpenseItem={saveNewExpenseItemHandler} onShowForm={showFormHandler}/>}
         </div>
     );
 }

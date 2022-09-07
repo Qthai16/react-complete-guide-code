@@ -43,6 +43,10 @@ function ExpenseForm(props) {
       date: "",
     });
     props.onSaveExpenseItem(expenseItem);
+    props.onShowForm(false);
+  };
+  const cancelHandler = (event) => {
+    props.onShowForm(false);
   };
   return (
     <form onSubmit={submitHandler}>
@@ -53,6 +57,7 @@ function ExpenseForm(props) {
             type="text"
             value={userInput.title}
             onChange={titleChangeHandler}
+            required
           />
         </div>
         <div className="new-expense__control">
@@ -63,6 +68,7 @@ function ExpenseForm(props) {
             step="0.01"
             value={userInput.amount}
             onChange={amountChangeHandler}
+            required
           />
         </div>
         <div className="new-expense__control">
@@ -73,10 +79,12 @@ function ExpenseForm(props) {
             max="2022-12-31"
             value={userInput.date}
             onChange={dateChangeHandler}
+            required
           />
         </div>
         <div className="new-expense__actions">
           <button type="submit">Add expense</button>
+          <button type="button" onClick={cancelHandler}>Cancel</button>
         </div>
       </div>
     </form>
