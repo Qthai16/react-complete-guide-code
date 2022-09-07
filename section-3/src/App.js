@@ -1,3 +1,4 @@
+import React, {useState} from 'react'
 import Expenses from "./components/Expenses/Expenses";
 import NewExpenses from "./components/NewExpenses/NewExpenses";
 
@@ -21,31 +22,37 @@ function App() {
       title: "New Desk (Wooden)",
       amount: 450,
       date: new Date(2021, 5, 12),
-    },
-    {
-      id: "e5",
-      title: "Mop",
-      amount: 12,
-      date: new Date(2021, 5, 12),
-    },
-    {
-      id: "e6",
-      title: "Table",
-      amount: 10,
-      date: new Date(2021, 5, 12),
-    },
-    {
-      id: "e7",
-      title: "Laptop",
-      amount: 100,
-      date: new Date(2021, 5, 12),
-    },
+    }
+    // {
+    //   id: "e5",
+    //   title: "Mop",
+    //   amount: 12,
+    //   date: new Date(2021, 5, 12),
+    // },
+    // {
+    //   id: "e6",
+    //   title: "Table",
+    //   amount: 10,
+    //   date: new Date(2021, 5, 12),
+    // },
+    // {
+    //   id: "e7",
+    //   title: "Laptop",
+    //   amount: 100,
+    //   date: new Date(2021, 5, 12),
+    // },
   ];
+  const [expensesArray, updateExpensesArray] = useState(expenses);
+  const addNewExpenseItemHandler = (expenseItems) => {
+    let newArr = [...expensesArray].concat(expenseItems);;
+    // console.log(newArr);
+    updateExpensesArray(newArr); 
+  };
   return (
     <div>
       <h2>Let's get started!</h2>
-      <NewExpenses/>
-      <Expenses expenses={expenses} />
+      <NewExpenses onUpdateExpenses={addNewExpenseItemHandler}/>
+      <Expenses expenses={expensesArray} />
     </div>
   );
 }
