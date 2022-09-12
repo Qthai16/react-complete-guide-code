@@ -7,7 +7,7 @@ function ExpenseForm(props) {
   // const [enteredDate, setEnteredDate] = useState('2019-01-01');
   const [userInput, setUserInput] = useState({
     title: "",
-    amount: "",
+    amount: 0,
     date: "2019-01-01",
   });
   const titleChangeHandler = (event) => {
@@ -34,16 +34,17 @@ function ExpenseForm(props) {
     event.preventDefault();
     const expenseItem = {
       title: userInput.title,
-      amount: userInput.amount,
+      amount: +userInput.amount,
       date: new Date(userInput.date),
     };
     setUserInput({
       title: "",
-      amount: "",
+      amount: 0,
       date: "",
     });
     props.onSaveExpenseItem(expenseItem);
     props.onShowForm(false);
+    console.log(expenseItem);
   };
   const cancelHandler = (event) => {
     props.onShowForm(false);
