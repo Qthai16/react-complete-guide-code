@@ -1,0 +1,10 @@
+.card {
+  /* background-color: rgb(127, 127, 127); */
+  background-color: rgb(197, 230, 187);
+  max-width: 30rem;
+  display: block;
+  /* text-align: center; */
+  margin: 1rem auto;
+  /* padding: 0.5rem 1rem; */
+  border-radius: 0.5rem;
+}

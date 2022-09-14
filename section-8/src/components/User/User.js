@@ -1,16 +1,8 @@
-import React, {useState} from "react";
-import "./User.css";
+import React from "react";
+import classes from "./User.module.css";
 
 const User = (props) => {
-  return (
-    <div className="user">
-      <label>Username</label>
-      <input type="text"></input>
-      <label>Age (years)</label>
-      <input type="number"></input>
-      <button type="button" onClick={props.onAddUser}>Add user</button>
-    </div>
-  );
+  return <li className={classes.user} key={props.id}>{props.name} ({props.age} years old)</li>
 };
 
 export default User;
