@@ -1,21 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import classes from "./UserForm.module.css";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import ErrorModal from "../Modal/ErrorModal";
 
 const UserForm = (props) => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const enteredName = useRef();
+  const enteredAge = useRef();
   const [showError, setShowError] = useState(false);
-  const nameChangeHandler = (event) => {
-    setName(event.target.value);
-  };
-  const ageChangeHandler = (event) => {
-    setAge(event.target.value);
-  };
   const addUserHandler = (event) => {
     event.preventDefault();
+    const name = enteredName.current.value;
+    const age = enteredAge.current.value;
     if (name.trim().length === 0) {
       setShowError(true);
       return;
@@ -25,8 +21,8 @@ const UserForm = (props) => {
       return;
     }
     props.onAddUser({ name: name, age: age, id: Math.random().toString() });
-    setName("");
-    setAge(0);
+    enteredName.current.value = '';
+    enteredAge.current.value = 0;
   };
   const errorHeader = "Invalid input";
   const errorMessage = "Please enter a valid name and age (non-empty values)";
@@ -34,7 +30,7 @@ const UserForm = (props) => {
     setShowError(false);
   };
   return (
-    <div>
+    <Fragment>
       {showError && <ErrorModal
         header={errorHeader}
         message={errorMessage}
@@ -47,21 +43,19 @@ const UserForm = (props) => {
             className={classes.input}
             id="username"
             type="text"
-            onChange={nameChangeHandler}
-            value={name}
+            ref={enteredName}
           ></input>
           <label>Age (years)</label>
           <input
             className={classes.input}
             id="age"
             type="number"
-            onChange={ageChangeHandler}
-            value={age}
+            ref={enteredAge}
           ></input>
-          <Button type="submit">Add user</Button>
+        <Button type="submit">Add user</Button>
         </form>
       </Card>
-    </div>
+    </Fragment>
   );
 };
 
