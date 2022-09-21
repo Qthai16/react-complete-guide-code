@@ -1,0 +1,24 @@
+.meal-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meal-details, .meal-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.meal-action {
+    align-items: flex-end;
+}
+
+.meal-action input {
+    width: 3rem;
+    margin:  0 0 .5rem 2rem;
+}
+
+.meal-details div {
+    margin: .125rem 0;
+}
