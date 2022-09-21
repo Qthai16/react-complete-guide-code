@@ -88,19 +88,19 @@ const Login = (props) => {
   //   }; //cleanup function, will be called before useEffect, except for the first time useEffect is called
   // }, [enteredEmail, enteredPassword]);
 
-  const {isValid: emailIsValid} = emailState; //destructuring and alias
-  const {isValid: passwordIsValid} = passwordState;
+  // const {isValid: emailIsValid} = emailState; //destructuring and alias
+  // const {isValid: passwordIsValid} = passwordState;
 
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("checking form validity");
-      setFormIsValid(emailIsValid && passwordIsValid);
-    }, 200);
+      setFormIsValid(passwordState.isValid && emailState.isValid);
+    }, 400);
     return () => {
       console.log("Cleanup");
       clearTimeout(identifier);
     };
-  }, [emailIsValid, passwordIsValid]);
+  }, [passwordState.isValid, emailState.isValid]);
   // const [formValidState, dispatchFormState] = useReducer(formValidReducer, {value: false});
 
   const submitHandler = (event) => {
