@@ -4,12 +4,12 @@ import classes from "./HeaderCartButton.module.css";
 
 const HeaderCartButton = (props) => {
   return (
-    <button className={classes.button}>
+    <button className={classes.button} onClick={() => {props.onShowCart()}}>
       <span className={classes.icon}>
         <CartIcon />
       </span>
       <span>Your cart</span>
-      <span className={classes.badge}>3</span>
+      <span className={classes.badge}>{props.totalAmount}</span>
     </button>
   );
 };

@@ -2,6 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: .25rem 0;
+    margin-bottom: 1rem;
+}
+
+.meal-control:last-child {
+    border-style: none;
+    padding: 0;
+    margin-bottom: 0;
 }
 
 .meal-details, .meal-action {
@@ -21,4 +30,11 @@
 
 .meal-details div {
     margin: .125rem 0;
+}
+
+.meal-details__amount {
+    margin-left: 3rem;
+    border: 1px solid #000;
+    border-radius: 2px;
+    padding: .25rem;
 }
