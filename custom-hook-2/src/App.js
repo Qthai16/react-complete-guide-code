@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import useHttpReq from "./components/hooks/use-http-req";
 
 import Tasks from "./components/Tasks/Tasks";
@@ -6,11 +6,11 @@ import NewTask from "./components/NewTask/NewTask";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [response, fetchTasks] = useHttpReq(
-    "https://react-demo-http-97abe-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
-    "GET"
-  );
-  const { isLoading, data, error } = response;
+  const httpHandler = useHttpReq({
+    url: "https://react-demo-http-97abe-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
+    method: "GET",
+  });
+  const { isLoading, data, error, sendRequest: fetchTasks } = httpHandler;
   useEffect(() => {
     const loadedTasks = [];
     for (const taskKey in data) {
@@ -50,11 +50,18 @@ function App() {
   // };
 
   useEffect(() => {
-    fetchTasks();
+    const intervalId = setInterval(() => {
+      fetchTasks();
+    }, 1000);
+    return () => {
+      clearInterval(intervalId);
+    }
+    // fetchTasks();
   }, []);
 
-  const taskAddHandler = (task) => {
-    setTasks((prevTasks) => prevTasks.concat(task));
+  const taskAddHandler = (newTask) => {
+    // setTasks((prevTasks) => prevTasks.concat(newTask));
+    fetchTasks();
   };
 
   return (
@@ -62,7 +69,7 @@ function App() {
       <NewTask onAddTask={taskAddHandler} />
       <Tasks
         items={tasks}
-        loading={isLoading}
+        // loading={isLoading}
         error={error}
         onFetch={fetchTasks}
       />

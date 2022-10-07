@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
-const useHttpReq = (url, method, onSuccess = null, onError = null) => {
+const useHttpReq = (requestConfig, onSuccess = null, onError = null) => {
+  // url, method
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
-  const requestHandler = async (body) => {
+  const sendRequest = useCallback(async (body) => {
     setIsLoading(true);
     setError(null);
     try {
       let requestInit = {
-        method: method,
+        method: requestConfig.method,
         headers: {
           "Content-Type": "application/json",
         },
@@ -18,7 +19,8 @@ const useHttpReq = (url, method, onSuccess = null, onError = null) => {
       if (body !== null) {
         requestInit["body"] = JSON.stringify(body);
       }
-      const response = await fetch(url, requestInit);
+      console.log(requestInit);
+      const response = await fetch(requestConfig.url, requestInit);
 
       if (!response.ok) {
         throw new Error("Request failed!");
@@ -32,14 +34,14 @@ const useHttpReq = (url, method, onSuccess = null, onError = null) => {
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
-  };
+  }, []);
 
-  return [
-    { isLoading: isLoading, data: data, error: error },
-    (body = null) => {
-      requestHandler(body);
-    },
-  ];
+  return {
+    isLoading,
+    data,
+    error,
+    sendRequest,
+  };
 };
 
 export default useHttpReq;

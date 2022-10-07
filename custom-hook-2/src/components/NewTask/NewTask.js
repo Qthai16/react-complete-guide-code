@@ -1,20 +1,21 @@
-import { useState } from "react";
+import React from 'react'
 import useHttpReq from "../hooks/use-http-req";
 
 import Section from "../UI/Section";
 import TaskForm from "./TaskForm";
 
 const NewTask = (props) => {
-  const [response, enterTaskHandler] = useHttpReq(
-    "https://react-demo-http-97abe-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
-    "POST",
-    (body, data) => {
-      props.onAddTask({ ...body, id: data?.name });
-    }
+  const httpHandler = useHttpReq({
+    url: "https://react-demo-http-97abe-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
+    method: "POST",
+  },
+  (body, data) => {
+    props.onAddTask({ ...body, id: data?.name });
+  }
   );
-  const { isLoading, data, error } = response;
+  const { isLoading, data, error, sendRequest } = httpHandler;
   const addTaskHandler = (createdTask) => {
-    enterTaskHandler(createdTask);
+    sendRequest(createdTask);
   };
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState(null);
