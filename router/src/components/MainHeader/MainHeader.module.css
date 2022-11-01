@@ -1,0 +1,30 @@
+.main_header {
+    background-color: rgb(124, 124, 204);
+    padding: .5rem;
+}
+
+.main_header nav {
+    height: 100%;
+}
+
+.main_header ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.main_header a {
+    color: white;
+    size: 1rem;
+    text-decoration: none;
+    margin: 0 1.5rem;
+}
+
+.main_header a:hover, a:active, a.active {
+    color: #95bcf0;
+    padding-bottom: 0.25rem;
+    border-bottom: 4px solid #95bcf0;
+}
