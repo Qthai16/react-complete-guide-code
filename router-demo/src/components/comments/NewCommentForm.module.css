@@ -33,6 +33,8 @@
   display: block;
   width: 100%;
   font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .control textarea:focus {
